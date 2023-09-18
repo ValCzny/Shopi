@@ -14,7 +14,7 @@ const CheckoutSideMenu = () => {
         context.setCartProducts(filteredProducts);
     }
 
-    const handleCheckut = () => {
+    const handleCheckout = () => {
         const orderToAdd = {
             date: '01.02.23',
             products: context.cartProducts,
@@ -23,7 +23,8 @@ const CheckoutSideMenu = () => {
         }
 
         context.setOrder([...context.order, orderToAdd]);
-        context.setCartProducts([])
+        context.setCartProducts([]);
+        context.setSearchByTitle(null)
     }
 
     return(
@@ -59,7 +60,7 @@ const CheckoutSideMenu = () => {
             <Link to='/my-orders/last'>
             <button
             className='w-full py-3 text-white rounded-lg  bg-black '
-            onClick={() => handleCheckut()}>
+            onClick={() => handleCheckout()}>
                 Checkout
             </button>
             </Link>
