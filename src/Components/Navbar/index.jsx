@@ -6,10 +6,18 @@ import { Context } from '../../Context';
 const Navbar = () => {
     const context = useContext(Context);
     const activeStyle = 'underline underline-offset-4';
-
+    
+    //Sign Out
     const signOut = localStorage.getItem('sign-out');
     const parsedSignOut = JSON.parse(signOut);
     const isUserSignOut = context.signOut || parsedSignOut;    
+    //Account
+    const account = localStorage.getItem('account');
+    const parsedAccount = JSON.parse(account);
+    //Has an account
+    const noAccountInLocalStorage = parsedAccount ? Object.keys(parsedAccount).length === 0 : true;
+    const noAccountInLocalState = context.account ? Object.keys(context.account).length === 0 : true;
+    const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
 
     const handleSignOut = () => {
         const stringifiedSignOut = JSON.stringify(true);
@@ -18,18 +26,7 @@ const Navbar = () => {
     }
     
     const renderView = () => {
-        if (isUserSignOut) {
-            return (
-                <li>
-                    <NavLink
-                    to={'/sign-in'}
-                    className={({isActive}) => isActive ? activeStyle : undefined}
-                    onClick={() => handleSignOut()}>
-                        Sign Out
-                    </NavLink>
-                </li>
-            )
-        } else {
+        if (hasUserAnAccount && !isUserSignOut) {
             return (
                 <>
                     <li className='text-black/60'>
@@ -60,7 +57,7 @@ const Navbar = () => {
                             isActive ? activeStyle : undefined
                         }
                         onClick={() => handleSignOut()}>
-                            Sign In
+                            Sign Out
                         </NavLink>
                     </li>
                     <li className="flex justify-center items-center">
@@ -72,6 +69,17 @@ const Navbar = () => {
                         </div>
                     </li>
                 </>
+            )
+        } else {
+            return (
+                <li>
+                    <NavLink
+                    to={`${isUserSignOut ? '/sign-in' : '/'}`}
+                    className={({isActive}) => isActive ? activeStyle : undefined}
+                    onClick={() => handleSignOut()}>
+                        Sign In
+                    </NavLink>
+                </li>
             )
         }
     }
