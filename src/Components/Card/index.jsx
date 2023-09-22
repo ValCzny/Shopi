@@ -55,7 +55,7 @@ const Card = (data) => {
                     className=' w-full h-full object-fill rounded-lg' />
                 {renderIcon(data.data.id)}
             </figure>
-            <p className='flex justify-between'>
+            <p className='flex justify-between items-center'>
                 <span 
                     className='text-sm font-light truncate'>
                     {data.data.title}
