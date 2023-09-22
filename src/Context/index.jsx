@@ -96,8 +96,6 @@ export const Provider = ({children}) => {
         if (!searchByTitle && !searchByCategory) setFilteredItems(filterBy(null, items, searchByTitle, searchByCategory))
     }, [items, searchByTitle, searchByCategory])
 
-    console.log('filtered Items:', filteredItems);
-
     return (
         <Context.Provider value={{
             count,
